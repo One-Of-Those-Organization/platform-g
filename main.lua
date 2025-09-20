@@ -15,8 +15,8 @@ function love.draw()
     local desk_perspective = math.floor(cw * 0.10)
 
     local desk = {
-        desk_perspective,      ch - ch/3,  -- top-left
-        cw - desk_perspective, ch - ch/3,  -- top-right
+        desk_perspective,      ch - ch/2.5,  -- top-left
+        cw - desk_perspective, ch - ch/2.5,  -- top-right
         cw,                    ch,         -- bottom-right
         0,                     ch          -- bottom-left
     }
@@ -25,11 +25,12 @@ function love.draw()
     g.clear(0,0,0,0)
     g.setColor(1,1,1)
     g.polygon("fill", desk)
+    g.setColor(0.2,0.2,0.2)
+    g.polygon("line", desk)
     g.setCanvas()
 
     g.setColor(1,1,1)
     g.draw(deskCanvas, 0, 0, 0, deskScale, deskScale)
 
     g.setColor(1,1,1)
-    g.print("Other assets look normal", 50, 50)
 end
