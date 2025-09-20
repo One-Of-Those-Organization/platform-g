@@ -16,26 +16,27 @@ function love.load()
     -- Load texture (your wood grain image)
     deskTexture = love.graphics.newImage("desk_texture2.jpg")
     deskTexture:setWrap("repeat", "repeat")
+    fadeOut = love.graphics.newShader("fade-out.glsl")
 
 
     local cw, ch = deskCanvas:getDimensions()
     local desk_perspective = math.floor(cw * 0.10)
 
     -- trapezoid corners with repeated UVs
-    -- local desk = {
-    --     {desk_perspective,      ch - ch/2.5,  0,        0},        -- top-left
-    --     {cw - desk_perspective, ch - ch/2.5,  repeatX,  0},        -- top-right
-    --     {cw,                    ch,           repeatX,  repeatY},  -- bottom-right
-    --     {0,                     ch,           0,        repeatY},  -- bottom-left
-    -- }
-
     local desk = {
-        { desk_perspective,      ch - ch/2.5, repeatX,  0 },        -- top-left
-        { cw - desk_perspective, ch - ch/2.5, repeatX,  repeatY },  -- top-right
-        { cw,                    ch,          0,        repeatY },  -- bottom-right
-        { 0,                     ch,          0,        0 },        -- bottom-left
+        {desk_perspective,      ch - ch/2.5,  0,        0},        -- top-left
+        {cw - desk_perspective, ch - ch/2.5,  repeatX,  0},        -- top-right
+        {cw,                    ch,           repeatX,  repeatY},  -- bottom-right
+        {0,                     ch,           0,        repeatY},  -- bottom-left
     }
 
+    -- local desk = {
+    --     { desk_perspective,      ch - ch/2.5, repeatX,  0 },        -- top-left
+    --     { cw - desk_perspective, ch - ch/2.5, repeatX,  repeatY },  -- top-right
+    --     { cw,                    ch,          0,        repeatY },  -- bottom-right
+    --     { 0,                     ch,          0,        0 },        -- bottom-left
+    -- }
+    --
 
     deskMesh = love.graphics.newMesh(desk, "fan", "static")
     deskMesh:setTexture(deskTexture)
@@ -55,8 +56,12 @@ function love.draw()
     g.setCanvas(deskCanvas)
     g.clear(0,0,0,0)
 
-    g.setColor(1,1,1)
-    g.draw(deskMesh, cw/2, ch/2, 0, 1, 1, cw/2, ch/2)
+    g.setShader(fadeOut)
+
+        g.setColor(1,1,1)
+        g.draw(deskMesh, cw/2, ch/2, 0, 1, 1, cw/2, ch/2)
+
+    g.setShader()
 
     g.setLineWidth(1)
     g.setColor(0.1,0.1,0.1) -- black bezel/outline
