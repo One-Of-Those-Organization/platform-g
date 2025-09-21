@@ -1,5 +1,5 @@
-local deskCanvas
 local deskScale = 12
+local deskCanvas
 local deskMesh
 local deskTexture
 local deskPolygon
@@ -14,7 +14,7 @@ function love.load()
     deskCanvas = love.graphics.newCanvas(math.floor(w/deskScale), math.floor(h/deskScale))
 
     -- Load texture (your wood grain image)
-    deskTexture = love.graphics.newImage("desk_texture2.jpg")
+    deskTexture = love.graphics.newImage("assets/desk_texture.jpg")
     deskTexture:setWrap("repeat", "repeat")
     fadeOut = love.graphics.newShader("fade-out.glsl")
 
@@ -29,14 +29,6 @@ function love.load()
         {cw,                    ch,           repeatX,  repeatY},  -- bottom-right
         {0,                     ch,           0,        repeatY},  -- bottom-left
     }
-
-    -- local desk = {
-    --     { desk_perspective,      ch - ch/2.5, repeatX,  0 },        -- top-left
-    --     { cw - desk_perspective, ch - ch/2.5, repeatX,  repeatY },  -- top-right
-    --     { cw,                    ch,          0,        repeatY },  -- bottom-right
-    --     { 0,                     ch,          0,        0 },        -- bottom-left
-    -- }
-    --
 
     deskMesh = love.graphics.newMesh(desk, "fan", "static")
     deskMesh:setTexture(deskTexture)
@@ -64,7 +56,7 @@ function love.draw()
     g.setShader()
 
     g.setLineWidth(1)
-    g.setColor(0.1,0.1,0.1) -- black bezel/outline
+    g.setColor(0.05,0.05,0.05) -- black bezel/outline
     g.polygon("line", deskPolygon)
 
     g.setCanvas()
