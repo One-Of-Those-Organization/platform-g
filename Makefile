@@ -17,7 +17,9 @@ android: love
 	echo "TODO: make android exe"
 
 windows: love
-	echo "TODO: make windows exe"
+	unzip love-win32.zip
+	cd love-11.5-win32 && cat love.exe ../game.love > game.exe
+	zip -r game-win32.zip love-11.5-win32/
 
 web: love
 	npm i --save-dev love.js
