@@ -6,7 +6,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
 
     local w,h = love.graphics.getDimensions()
-    fadeOut = love.graphics.newShader("fade-out.glsl")
+    fadeOut = love.graphics.newShader("gfx/fade-out.glsl")
 
     for i = 1, #objects do
         objects[i].preload(fadeOut)
