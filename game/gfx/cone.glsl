@@ -11,6 +11,7 @@ extern number coneAngle;   // Angle of the cone (0-1, where 1 is 180 degrees)
 extern number softness;    // Softness of the cone edges (0-1)
 extern number dropoff;     // Light intensity dropoff (1.0 = linear, 2.0 = quadratic)
 extern vec3 lightColor;    // Color of the light
+extern vec2 direction;
 
 vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
 {
@@ -24,7 +25,7 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
     vec2 lightDir = normalize(normalizedCoords - lightPosition);
 
     // Reference direction (pointing down)
-    vec2 coneDir = vec2(0.0, 1.0);
+    vec2 coneDir = direction;
 
     // Calculate angle between current pixel and cone direction
     float angle = acos(dot(lightDir, coneDir)) / 3.14159;
@@ -36,7 +37,7 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
     float coneMask = 1.0 - smoothstep(coneAngle - softness, coneAngle + softness, angle);
 
     // Calculate distance attenuation
-    float attenuation = 1.0 / pow(1.0 + distance * 0.01, dropoff);
+    float attenuation = 1.0 / pow(1.0 + distance * 0.001, dropoff);
 
     // Combine everything
     vec4 texcolor = Texel(tex, texture_coords);

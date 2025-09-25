@@ -19,8 +19,8 @@ function M.preload()
     M.desk = {
         {desk_perspective,      top_vertex,  0,        0},
         {cw - desk_perspective, top_vertex,  repeatX,  0},
-        {cw,                    ch,          repeatX,  repeatY},
-        {0,                     ch,          0,        repeatY},
+        {cw - 2,                    ch -1,          repeatX,  repeatY},
+        {0 + 2,                     ch -1,          0,        repeatY},
     }
 
     M.deskMesh = love.graphics.newMesh(M.desk, "fan", "static")
@@ -37,6 +37,7 @@ function M.render()
     g.setColor(1,1,1)
     g.draw(M.deskMesh, cw/2, ch/2, 0, 1, 1, cw/2, ch/2)
 
+    g.draw(M.deskTexture, cw, ch, 0, 1, 1)
     g.setCanvas()
 
     g.setColor(1,1,1)
