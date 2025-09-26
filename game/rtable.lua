@@ -44,4 +44,7 @@ function M.render()
     g.draw(M.deskCanvas, 0, 0, 0, M.deskScale, M.deskScale)
 end
 
+function M.update(dt)
+end
+
 return M

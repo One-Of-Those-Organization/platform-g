@@ -37,7 +37,7 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
     float coneMask = 1.0 - smoothstep(coneAngle - softness, coneAngle + softness, angle);
 
     // Calculate distance attenuation
-    float attenuation = 1.0 / pow(1.0 + distance * 0.001, dropoff);
+    float attenuation = 1.0 / pow(1.0 + distance * 0.007, dropoff);
 
     // Combine everything
     vec4 texcolor = Texel(tex, texture_coords);
