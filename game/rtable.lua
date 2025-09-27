@@ -1,5 +1,9 @@
 local M = {}
 
+gs = require("state")
+
+M.activeAt = { gs.state.inGame, gs.state.Menu }
+
 function M.preload()
     local deskScale = 12
     local repeatX, repeatY = 1, 1

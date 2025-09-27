@@ -1,8 +1,11 @@
 require("utils")
+gs = require("state")
+
 local objects = {
     require("rtable"),
 }
 
+local currentState = gs.state.InGame
 local blinkTimer
 local lightPos = {0.5, 0.0}
 local smoothSpeed = 2
@@ -19,11 +22,15 @@ function love.load()
     coneShader:send('lightColor', {1.0, 0.9, 0.6})
     coneShader:send('direction', {0, 1.0})
 
-    math.randomseed(os.time())
     blinkTimer = math.random(4, 6)
 
     for i = 1, #objects do
-        objects[i].preload()
+        for j = 1, #objects[i].activeAt do
+            if currentState == #objects[j].activeAt then
+                objects[i].preload()
+                break
+            end
+        end
     end
 end
 
@@ -51,13 +58,13 @@ function love.update(dt)
         blinkDuration = blinkDuration - dt
         if blinkDuration <= 0 then
             lampOn = true
-            blinkTimer = math.random(2, 6)
+            blinkTimer = 4 + math.random() * 2  -- 4.0–6.0
         end
     else
         blinkTimer = blinkTimer - dt
         if blinkTimer <= 0 then
             lampOn = false
-            blinkDuration = math.random(0.1, 0.3)
+            blinkDuration = 0.1 + math.random() * 0.2 -- 0.1–0.3
         end
     end
 
@@ -68,6 +75,12 @@ function love.update(dt)
     end
 
     for i = 1, #objects do
-        objects[i].update(dt)
+        for j = 1, #objects[i].activeAt do
+            if currentState == #objects[j].activeAt then
+                objects[i].update()
+                objects[i].render()
+                break
+            end
+        end
     end
 end
