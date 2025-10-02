@@ -3,6 +3,7 @@ local M = {}
 gs = require("state")
 
 M.activeAt = { gs.state.inGame, gs.state.Menu }
+M.ConeLightEffect = true
 
 function M.preload()
     local deskScale = 12
@@ -29,6 +30,9 @@ function M.preload()
 
     M.deskMesh = love.graphics.newMesh(M.desk, "fan", "static")
     M.deskMesh:setTexture(M.deskTexture)
+end
+
+function M.prerender()
 end
 
 function M.render()
