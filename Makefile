@@ -3,6 +3,9 @@ all: love
 clean: game.love
 	rm game.love
 
+run-fast: game/main.lua
+	./love-11.5-x86_64.AppImage game
+
 run: love
 	./love-11.5-x86_64.AppImage game.love
 
